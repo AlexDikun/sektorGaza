@@ -15,5 +15,7 @@
 # frozen_string_literal: true
 
 class Product < ApplicationRecord
-    validates :title, :body, :price, presence: true
+  include ImageUploader::Attachment(:image)
+
+  validates :title, :body, :price, :image, presence: true
 end

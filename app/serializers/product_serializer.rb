@@ -13,6 +13,6 @@
 # app/serializers/product_serializer.rb
 
 class ProductSerializer
-    include JSONAPI::Serializer
-    attributes :title, :body, :price, :image_data
-  end
+  include JSONAPI::Serializer
+  attributes :title, :body, :price, :image
+end
