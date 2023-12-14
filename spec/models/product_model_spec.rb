@@ -1,4 +1,5 @@
-# spec/models/product_spec.rb
+# spec/models/product_model_spec.rb
+# frozen_string_literal: true
 
 require 'rails_helper'
 
