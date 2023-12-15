@@ -5,6 +5,8 @@ ruby '2.7.4'
 
 gem 'dotenv-rails', '~> 2.8', '>= 2.8.1'
 
+gem 'image_processing', '~> 1.12', '>= 1.12.2'
+
 gem 'jsonapi.rb', '~> 2.0', '>= 2.0.1'
 gem 'jsonapi-serializer', '~> 2.2'
 
