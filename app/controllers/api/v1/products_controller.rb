@@ -2,10 +2,14 @@
 # frozen_string_literal: true
 
 class Api::V1::ProductsController < ApplicationController
+
+  # POST api/v1/products
   def create; end
 
+  # PATCH/PUT api/v1/products/:id
   def update; end
 
+  # DELETE api/v1/products/:id
   def destroy; end
 
   private
