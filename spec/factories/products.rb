@@ -10,5 +10,6 @@ FactoryBot.define do
 
     trait(:with_invalid_image) do
         image { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/product_image.txt')) }
+    end 
   end
 end
