@@ -7,5 +7,8 @@ FactoryBot.define do
     body { FFaker::Product.product }
     price { FFaker::Number.decimal }
     image { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/product_image.webp')) }
+
+    trait(:with_invalid_image) do
+        image { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/product_image.txt')) }
   end
 end
