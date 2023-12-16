@@ -11,6 +11,8 @@ RSpec.describe Product, type: :model do
   it { is_expected.to validate_presence_of(:price) }
   it { is_expected.to validate_presence_of(:image) }
   it { is_expected.to validate_numericality_of(:price).is_other_than(0) }
+  it { is_expected.to validate_length_of(:title).is_at_most(50) }
+  it { is_expected.to validate_length_of(:body).is_at_most(500) }
 
   context 'validation image format' do
     it 'allows to set webp file as an image' do
