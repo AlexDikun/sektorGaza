@@ -4,10 +4,13 @@
 require 'rails_helper'
 
 RSpec.describe Product, type: :model do
-  it { should validate_presence_of(:title) }
-  it { should validate_presence_of(:body) }
-  it { should validate_presence_of(:price) }
-  it { should validate_presence_of(:image) }
+  subject { build(:product) }
+
+  it { is_expected.to validate_presence_of(:title) }
+  it { is_expected.to validate_presence_of(:body) }
+  it { is_expected.to validate_presence_of(:price) }
+  it { is_expected.to validate_presence_of(:image) }
+  it { is_expected.to validate_numericality_of(:price).is_other_than(0) }
 
   context 'validation image format' do
     it 'allows to set webp file as an image' do
