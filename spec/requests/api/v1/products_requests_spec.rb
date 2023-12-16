@@ -18,9 +18,9 @@ RSpec.describe 'Api::V1::Product', type: :request do
         { product: { title: 123 } }
       end
 
-      it 'does not create product' do 
+      it 'does not create product' do
         expect { subject }.not_to(change { Product.count })
-        expect(response).to have_http_status(422) 
+        expect(response).to have_http_status(422)
       end
     end
   end

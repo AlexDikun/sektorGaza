@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 class Api::V1::ProductsController < ApplicationController
-
   # POST api/v1/products
   def create
     @product = Product.new(product_params)
