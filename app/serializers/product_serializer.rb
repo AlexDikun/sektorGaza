@@ -10,6 +10,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+
 # app/serializers/product_serializer.rb
 
 class ProductSerializer
