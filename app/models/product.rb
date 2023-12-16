@@ -17,6 +17,8 @@
 class Product < ApplicationRecord
   include ImageUploader::Attachment(:image)
 
-  validates :title, :body, :image, presence: true
+  validates :title, presence: true, length: { maximum: 50 }
+  validates :body, presence: true, length: { maximum: 500 }
   validates :price, numericality: { other_than: 0 }, presence: true
+  validates :image, presence: true
 end
