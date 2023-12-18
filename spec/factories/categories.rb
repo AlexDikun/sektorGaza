@@ -4,6 +4,6 @@
 FactoryBot.define do
   factory :category do
     name { FFaker::Music.genre }
-    description { FFaker::Book.description }
+    description { FFaker::Lorem.sentence } 
   end
 end
