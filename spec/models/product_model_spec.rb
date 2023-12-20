@@ -13,6 +13,8 @@ RSpec.describe Product, type: :model do
   it { is_expected.to validate_numericality_of(:price).is_other_than(0) }
   it { is_expected.to validate_length_of(:title).is_at_most(50) }
   it { is_expected.to validate_length_of(:body).is_at_most(500) }
+  it { is_expected.to have_many(:category_categorizations).with_foreign_key(:category_id).class_name('Categorization') }
+  it { is_expected.to have_many(:categories).through(:category_categorizations).source(:category) }
 
   context 'validation image format' do
     it 'allows to set webp file as an image' do
