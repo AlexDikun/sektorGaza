@@ -29,7 +29,7 @@ RSpec.describe 'Api::V1::Categories', type: :request do
   describe 'PATCH api/v1/categories/:id' do
     let(:category) { create :category }
     let(:params) do
-      { category: {description: 'some desctiptions' } }
+      { category: { description: 'some desctiptions' } }
     end
 
     subject { patch api_v1_category_path(id: category.id), params: params }
