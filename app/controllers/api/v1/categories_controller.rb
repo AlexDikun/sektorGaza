@@ -1,7 +1,7 @@
 # app/controllers/api/v1/categories_controller.rb
 # frozen_string_literal: true
 
-class Api::V1::CategoriesController < ApplicationController
+class Api::V1::CategoriesController < Api::V1::BaseController
   # POST api/v1/categories
   def create
     @category = Category.new(category_params)
