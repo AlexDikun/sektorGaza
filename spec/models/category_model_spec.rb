@@ -10,6 +10,6 @@ RSpec.describe Category, type: :model do
   it { is_expected.to validate_length_of(:name).is_at_most(30) }
   it { is_expected.to validate_length_of(:description).is_at_most(100) }
   it { is_expected.to validate_uniqueness_of(:name) }
-  it { is_expected.to have_many(:product_categorizations).with_foreign_key(:product_id).class_name('Categorization') }
-  it { is_expected.to have_many(:products).through(:product_categorizations).source(:product) }
+  it { is_expected.to have_many(:categorizations) }
+  it { is_expected.to have_many(:products).through(:categorizations) }
 end
