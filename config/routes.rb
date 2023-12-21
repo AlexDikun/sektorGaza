@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :products, only: %i[create update destroy]
       resources :categories, only: %i[create update destroy]
-      resources :categorizations, only: :destroy
+      resources :categorizations, only: %i[create destroy]
     end
   end
 end
