@@ -13,4 +13,7 @@
 class CategorySerializer
   include JSONAPI::Serializer
   attributes :name, :description
+
+  has_many :products, serializer: ProductSerializer
+  has_many :categorizations, serializer: CategorizationSerializer
 end

@@ -10,6 +10,6 @@
 #
 class CategorizationSerializer
   include JSONAPI::Serializer
-  belongs_to :category 
-  belongs_to :product
+  belongs_to :category, serializer: CategorySerializer
+  belongs_to :product, serializer: ProductSerializer
 end
