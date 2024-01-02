@@ -5,16 +5,71 @@ require 'rails_helper'
 
 RSpec.describe 'Api::V1::Catalogs', type: :request do
   describe 'GET api/vi/catalogs' do
-    let!(:instruments) { create :category }
-    let!(:piano) { create :product }
-    let!(:join_1) do
-      create :categorization, category_id: instruments.id, product_id: piano.id
+    let(:category) { create :category }
+    let(:product) { create :product }
+    let!(:join) do
+      create :categorization,
+             category_id: category.id,
+             product_id: product.id
     end
 
-    let!(:songs) { create :category }
-    let!(:katyusha) { create :product }
-    let!(:join_2) do
-      create :categorization, category_id: songs.id, product_id: katyusha.id
+    let(:expected_json) do
+      {
+        data: [{
+          id: category.id,
+          type: :category,
+          attributes: {
+            name: category.name,
+            description: category.description
+          },
+          relationships: {
+            products: {
+              data: [{
+                id: product.id,
+                type: :product
+              }]
+            },
+            categorizations: {
+              data: [{
+                id: join.id,
+                type: :categorization
+              }]
+            }
+          }
+        }],
+        included: [{
+          id: product.id,
+          type: :product,
+          attributes: {
+            title: product.title,
+            body: product.body,
+            price: product.price.to_s,
+            image: {
+              id: product.image.id,
+              storage: :store,
+              metadata: {
+                filename: 'product_image.webp',
+                size: product.image.size,
+                'mini_type' => 'image/webp'
+              }
+            }
+          },
+          relationships: {
+            categories: {
+              data: [{
+                id: category.id,
+                type: :category
+              }]
+            },
+            categorizations: {
+              data: [{
+                id: join.id,
+                type: :categorization
+              }]
+            }
+          }
+        }]
+      }
     end
 
     subject { get api_v1_catalogs_path }
@@ -22,21 +77,13 @@ RSpec.describe 'Api::V1::Catalogs', type: :request do
     it 'returns list list of products grouped by category' do
       subject
 
-      expected_response_for_category = instruments.id.to_s
-      expected_response_for_product = { 'body' => piano.body }
-      expected_grouping = 'categories'
-      
       json_response = JSON.parse(response.body)
+
+      puts json_response
 
       expect(response).to have_http_status(200)
       expect(json_response).to be_an(Hash)
-      expect(json_response['data'].first['relationships'])
-            .to include(expected_grouping)
-      expect(json_response['data']
-            .first['relationships']['categories']['data']
-            .first['id']).to eq(expected_response_for_category)
-      expect(json_response['data'].first['attributes'])
-            .to include(expected_response_for_product)
+      expect(json_response) == expected_json
     end
   end
 end
