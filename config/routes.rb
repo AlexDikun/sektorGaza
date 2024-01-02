@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       resources :categories, only: %i[create update destroy]
       resources :categorizations, only: %i[create destroy]
 
-      resources :catalog, only: :index
+      resources :catalogs, only: :index
     end
   end
 end

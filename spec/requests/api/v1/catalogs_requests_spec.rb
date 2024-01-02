@@ -4,7 +4,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::Catalogs', type: :request do
-  describe 'GET api/vi/catalog' do
+  describe 'GET api/vi/catalogs' do
     let!(:instruments) { create :category }
     let!(:piano) { create :product }
     let!(:join_1) do
@@ -17,7 +17,7 @@ RSpec.describe 'Api::V1::Catalogs', type: :request do
       create :categorization, category_id: songs.id, product_id: katyusha.id
     end
 
-    subject { get api_v1_catalog_index_path }
+    subject { get api_v1_catalogs_path }
 
     it 'returns list list of products grouped by category' do
       subject
