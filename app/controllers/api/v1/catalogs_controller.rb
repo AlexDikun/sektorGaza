@@ -4,8 +4,8 @@
 class Api::V1::CatalogsController < Api::V1::BaseController
   # GET api/v1/catalogs
   def index
-    @grouped_list = Product.joins(:categories).order('categories.id')
-    render json: ProductSerializer.new(@grouped_list, include: [:categories]).serializable_hash.to_json,
-           status: :ok, code: '200'
+    @grouped_list = Category.joins(:products).group('categories.id')
+    render json: CategorySerializer.new(@grouped_list, include: [:products])
+                                   .serializable_hash.to_json, status: :ok, code: '200'
   end
 end
