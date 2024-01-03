@@ -79,8 +79,6 @@ RSpec.describe 'Api::V1::Catalogs', type: :request do
 
       json_response = JSON.parse(response.body)
 
-      puts json_response
-
       expect(response).to have_http_status(200)
       expect(json_response).to be_an(Hash)
       expect(json_response) == expected_json
