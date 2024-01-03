@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
-require 'api/v1/categorizations_controller'
 
 RSpec.describe 'Api::V1::Categorizations', type: :request do
   let(:category) { create :category }
