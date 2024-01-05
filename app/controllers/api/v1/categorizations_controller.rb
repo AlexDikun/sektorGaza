@@ -4,8 +4,8 @@
 class Api::V1::CategorizationsController < Api::V1::BaseController
   # POST api/v1/categorizations
   def create
-    @product = Category.find(params[:category_id])
-    @category = Product.find(params[:product_id])
+    @category = Category.find(params[:category_id])
+    @product = Product.find(params[:product_id])
     @categorization = Categorization.create(category_id: @category.id, product_id: @product.id)
     if @categorization.save
       render jsonapi: @categorization, status: :created, code: '201'
