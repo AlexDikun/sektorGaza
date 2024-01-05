@@ -89,7 +89,18 @@ RSpec.configure do |config|
   #   # test failures related to randomization by passing the same `--seed` value
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
-  
+
+  config.after(:suite) do # or :each or :all
+    # for temporary files
+    Dir["#{Rails.root}/public/uploads/*.*"].each do |file|
+      File.delete(file)
+    end
+    # for permanent files
+    Dir["#{Rails.root}/public/uploads/cache/*"].each do |file|
+      File.delete(file)
+    end
+  end
+
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)

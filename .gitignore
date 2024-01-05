@@ -28,3 +28,6 @@
 
 # Ignore db config
 /.env
+
+# Ignore downloaded images
+/public/uploads/*
