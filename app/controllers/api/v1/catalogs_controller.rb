@@ -8,4 +8,7 @@ class Api::V1::CatalogsController < Api::V1::BaseController
     render json: CategorySerializer.new(@grouped_list, include: [:products])
                                    .serializable_hash.to_json, status: :ok, code: '200'
   end
+
+  # GET api/v1/filter
+  def filter; end
 end
