@@ -10,5 +10,10 @@ class Api::V1::CatalogsController < Api::V1::BaseController
   end
 
   # GET api/v1/filter
-  def filter; end
+  def filter
+    @category_ids = Category.find(params[:category_ids])
+    @filtered_data = Product.joins(:categories).where(categories: { id: @category_ids })
+    render json: ProductSerializer.new(@filtered_data, inclide: [:categories])
+                                  .serializable_hash.to_json, status: :ok, code: '200'
+  end
 end
