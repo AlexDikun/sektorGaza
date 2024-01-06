@@ -8,7 +8,8 @@ Rails.application.routes.draw do
       resources :categories, only: %i[create update destroy]
       resources :categorizations, only: %i[create destroy]
 
-      resources :catalogs, only: :index
+      resources :catalog, only: :index
+      get 'catalog_filter', to: 'catalog#filter'
     end
   end
 end
