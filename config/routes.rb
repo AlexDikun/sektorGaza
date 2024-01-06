@@ -11,7 +11,7 @@ Rails.application.routes.draw do
       resources :catalog, only: :index
       get 'catalog_filter', to: 'catalog#filter'
 
-      resources :users, only: %i[update delete]
+      resources :users, only: %i[update destory]
     end
   end
 end
