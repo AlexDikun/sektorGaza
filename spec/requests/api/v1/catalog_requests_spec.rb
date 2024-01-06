@@ -1,10 +1,10 @@
-# spec/requests/api/catalogs_requests_spec.rb
+# spec/requests/api/catalog_requests_spec.rb
 # frozen_string_literal: true
 
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Catalogs', type: :request do
-  describe 'GET api/vi/catalogs' do
+RSpec.describe 'Api::V1::Catalog', type: :request do
+  describe 'GET api/vi/catalog' do
     let(:category) { create :category }
     let(:product) { create :product }
     let!(:join) do
@@ -72,7 +72,7 @@ RSpec.describe 'Api::V1::Catalogs', type: :request do
       }
     end
 
-    subject { get api_v1_catalogs_path }
+    subject { get api_v1_catalog_index_path }
 
     it 'returns list list of products grouped by category' do
       subject
@@ -85,7 +85,7 @@ RSpec.describe 'Api::V1::Catalogs', type: :request do
     end
   end
 
-  describe 'GET api/v1/filter' do
+  describe 'GET api/v1/catalog_filter' do
     let(:desired_category) { create :category }
     let(:desired_product) { create :product }
     let!(:join1) do
@@ -104,7 +104,7 @@ RSpec.describe 'Api::V1::Catalogs', type: :request do
 
     context 'returning a list of products by one category' do
       let(:params) { { category_ids: [desired_category.id] } }
-      subject { get api_v1_filter_path, params: params }
+      subject { get api_v1_catalog_filter_path, params: params }
 
       it 'filtered by one category' do
         subject
@@ -129,7 +129,7 @@ RSpec.describe 'Api::V1::Catalogs', type: :request do
       end
 
       let(:params) { { category_ids: [desired_category.id, wanted_category.id] } }
-      subject { get api_v1_filter_path, params: params }
+      subject { get api_v1_catalog_filter_path, params: params }
 
       it 'filtered by several categories' do
         subject
