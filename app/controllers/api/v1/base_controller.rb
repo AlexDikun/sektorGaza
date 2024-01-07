@@ -14,8 +14,8 @@ class Api::V1::BaseController < ApplicationController
 
   private
 
-  def authenticate_account!
-    if account_signed_in?
+  def authenticate_user!
+    if user_signed_in?
       super
     else
       new_api_v1_user_session
