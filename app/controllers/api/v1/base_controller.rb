@@ -9,7 +9,7 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def after_sign_in_path_for(_user)
-    api_v1_catalog_index
+    redirect_to api_v1_catalog_index_path, format: :jsonapi
   end
 
   private
@@ -18,7 +18,7 @@ class Api::V1::BaseController < ApplicationController
     if api_v1_user_signed_in?
       authenticate_api_v1_user! # super
     else
-      new_api_v1_user_session_path
+      redirect_to new_api_v1_user_session_path, format: :jsonapi
     end
   end
 end
