@@ -2,7 +2,11 @@
 # frozen_string_literal: true
 
 class Api::V1::UsersController < Api::V1::BaseController
-  def update; end
+  before_action :authenticate_user!, only: %i[update destroy]
 
-  def delete; end
+  # PATCH/PUT api/v1/users/:id
+  def update; end
+  
+  # DELETE api/v1/users/:id
+  def destory; end
 end
