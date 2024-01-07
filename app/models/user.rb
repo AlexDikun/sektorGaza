@@ -20,7 +20,7 @@ class User < ApplicationRecord
   include ImageUploader::Attachment(:avatar)
 
   EMAIL_FORMAT = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
-  PASSWORD_FORMAT = /\A(?=.*[a-z])(?=.*[\d]).{8,}\z/i.freeze
+  PASSWORD_FORMAT = /\A(?=.*[a-z])(?=.*\d).{8,}\z/i.freeze
 
   validates :email, presence: true, uniqueness: true
   validates :email, format: { with: EMAIL_FORMAT, message: 'Invalid email!' }
