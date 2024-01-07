@@ -4,8 +4,8 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::Users', type: :request do
-  let(:user) { create :user }
-
+  let!(:user) { create :user }
+  
   describe 'PATCH api/v1/users/:id' do
     let(:params) { { user: { fullname: 'Elvis Presley' } } }
 
@@ -13,7 +13,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
 
     it 'the user is not authenticated' do
       expect { subject }.not_to(change { user.reload.fullname })
-      expect(response).to have_http_status(422)
+      expect(response).to have_http_status(302)
     end
 
     context 'the user has authenticated' do
@@ -31,6 +31,9 @@ RSpec.describe 'Api::V1::Users', type: :request do
         { user: { email: friendly.email } }
       end
 
+      before { sign_in user     }
+      after  { friendly.destroy }
+
       it 'does not update user' do
         expect { subject }.not_to(change { user.reload.email })
         expect(response).to have_http_status(422)
@@ -45,7 +48,7 @@ RSpec.describe 'Api::V1::Users', type: :request do
 
     it 'the user is not authenticated' do
       expect { subject }.not_to(change { User.count })
-      expect(response).to have_http_status(422)
+      expect(response).to have_http_status(302)
     end
 
     context 'the user has authenticated' do
