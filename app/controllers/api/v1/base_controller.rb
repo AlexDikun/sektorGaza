@@ -15,10 +15,10 @@ class Api::V1::BaseController < ApplicationController
   private
 
   def authenticate_user!
-    if user_signed_in?
-      super
+    if api_v1_user_signed_in?
+      authenticate_api_v1_user! # super
     else
-      new_api_v1_user_session
+      new_api_v1_user_session_path
     end
   end
 end
