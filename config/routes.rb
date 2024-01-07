@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  devise_for :users
   namespace :api do
     namespace :v1 do
       resources :products, only: %i[create update destroy]
@@ -13,6 +12,7 @@ Rails.application.routes.draw do
       get 'catalog_filter', to: 'catalog#filter'
 
       resources :users, only: %i[update destory]
+      devise_for :users
     end
   end
 end
