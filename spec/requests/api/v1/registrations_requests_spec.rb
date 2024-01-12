@@ -11,7 +11,7 @@ describe 'Api::V1::Registrations', type: :request do
                 password: user.password } }
     end
 
-    subject { post 'api/v1/signup', params: params }
+    subject { post '/api/v1/signup', params: params }
 
     it 'user registration' do
       expect { subject }.to change { User.count }.by(1)
@@ -29,8 +29,8 @@ describe 'Api::V1::Registrations', type: :request do
         { user: { email: existing_user.email,
                   password: existing_user.password } }
     end
-    
-    subject { post 'api/v1/signup', params: params }
+
+    subject { post '/api/v1/signup', params: params }
 
     it 'user was unable to register' do
       expect { subject }.not_to(change { User.count })
