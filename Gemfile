@@ -3,6 +3,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.4'
 
+gem 'devise', '~> 4.9', '>= 4.9.3'
+gem 'devise-jwt', '~> 0.11.0'
+
 gem 'dotenv-rails', '~> 2.8', '>= 2.8.1'
 
 gem 'image_processing', '~> 1.12', '>= 1.12.2'
