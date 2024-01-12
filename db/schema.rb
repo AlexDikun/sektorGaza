@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_240_112_105_159) do
+ActiveRecord::Schema.define(version: 20_240_112_122_548) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -27,6 +27,12 @@ ActiveRecord::Schema.define(version: 20_240_112_105_159) do
     t.datetime 'created_at', precision: 6, null: false
     t.datetime 'updated_at', precision: 6, null: false
     t.index %w[category_id product_id], name: 'index_categorizations_on_category_id_and_product_id', unique: true
+  end
+
+  create_table 'jwt_denylist', force: :cascade do |t|
+    t.string 'jti', null: false
+    t.datetime 'expired_at', null: false
+    t.index ['jti'], name: 'index_jwt_denylist_on_jti'
   end
 
   create_table 'products', force: :cascade do |t|
