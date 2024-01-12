@@ -28,7 +28,8 @@ describe 'Api::V1::Registrations', type: :request do
     let(:params) do
         { user: { email: existing_user.email,
                   password: existing_user.password } }
-
+    end
+    
     subject { post 'api/v1/signup', params: params }
 
     it 'user was unable to register' do
