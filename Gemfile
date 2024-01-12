@@ -10,6 +10,8 @@ gem 'image_processing', '~> 1.12', '>= 1.12.2'
 gem 'jsonapi.rb', '~> 2.0', '>= 2.0.1'
 gem 'jsonapi-serializer', '~> 2.2'
 
+gem 'rack-cors', '~> 2.0', '>= 2.0.1'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.0.6', '>= 6.0.6.1'
 
