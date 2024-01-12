@@ -9,7 +9,7 @@ FactoryBot.define do
     avatar { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/avatar.png')) }
 
     trait(:with_invalid_avatar) do
-      image { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/avatar.tiff')) }
+      avatar { Rack::Test::UploadedFile.new(Rails.root.join('spec/fixtures/avatar.tiff')) }
     end
   end
 end
