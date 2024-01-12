@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :product do
+  factory :user do
     username { FFaker::Name.name }
     email { FFaker::Internet.email }
     password { 'password1' }
