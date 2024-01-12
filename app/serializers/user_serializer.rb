@@ -10,6 +10,9 @@
 #  email              :string           default(""), not null
 #  encrypted_password :string           default(""), not null
 #
+
+# app/serializers/user_serializer.rb
+
 class UserSerializer
   include JSONAPI::Serializer
   attributes :fullname, :avatar, :email
