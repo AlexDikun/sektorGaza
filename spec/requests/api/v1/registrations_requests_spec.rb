@@ -20,7 +20,6 @@ describe 'Api::V1::Registrations', type: :request do
       expect(response).to have_http_status(200)
       expect(response.headers['Authorization']).to be_present
       json_response = JSON.parse(response.body)
-      puts json_response
       expect(json_response['data']['attributes']).to include(expected_response)
     end
   end
