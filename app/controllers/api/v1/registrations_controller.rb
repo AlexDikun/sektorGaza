@@ -7,6 +7,7 @@ class Api::V1::RegistrationsController < Devise::RegistrationsController
   # POST api/v1/signup
   def create
     build_resource(sign_up_params)
+    resource.skip_avatar_validation = true
     resource.save
 
     if resource.persisted?

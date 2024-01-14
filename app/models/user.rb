@@ -23,10 +23,12 @@ class User < ApplicationRecord
   EMAIL_FORMAT = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i.freeze
   PASSWORD_FORMAT = /\A(?=.*[a-z])(?=.*\d).{8,}\z/i.freeze
 
-  # validates :avatar, presence: true
+  validates :avatar, presence: true, unless: :skip_avatar_validation
   validates :email, presence: true, uniqueness: true
   validates :email, format: { with: EMAIL_FORMAT }
   validates :fullname, presence: true, length: { maximum: 30 }
   validates :password, presence: true, length: { minimum: 8 }, on: :create
-  validates :password, format: { with: PASSWORD_FORMAT }, on: :create\
+  validates :password, format: { with: PASSWORD_FORMAT }, on: :create
+
+  attr_accessor :skip_avatar_validation
 end
