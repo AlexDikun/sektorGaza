@@ -3,12 +3,17 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.4'
 
+gem 'devise', '~> 4.9', '>= 4.9.3'
+gem 'devise-jwt', '~> 0.11.0'
+
 gem 'dotenv-rails', '~> 2.8', '>= 2.8.1'
 
 gem 'image_processing', '~> 1.12', '>= 1.12.2'
 
 gem 'jsonapi.rb', '~> 2.0', '>= 2.0.1'
 gem 'jsonapi-serializer', '~> 2.2'
+
+gem 'rack-cors', '~> 2.0', '>= 2.0.1'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.0.6', '>= 6.0.6.1'
