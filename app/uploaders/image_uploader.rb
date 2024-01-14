@@ -21,7 +21,7 @@ class ImageUploader < Shrine
     }
   end
 
-  Attacher.default_url do |**options|
-    "/placeholders/sektor_default.jpg"
+  Attacher.default_url do |**_options|
+    '/placeholders/sektor_default.jpg'
   end
 end

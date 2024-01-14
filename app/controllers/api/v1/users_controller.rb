@@ -15,8 +15,8 @@ class Api::V1::UsersController < Api::V1::BaseController
       @user.avatar_derivatives! && @user.save if @user.avatar
       render jsonapi: @user, status: :ok, code: '200'
     else
-      render jsonapi_errors: @user.errors, 
-                 status: :unprocessable_entity, code: '422'
+      render jsonapi_errors: @user.errors,
+             status: :unprocessable_entity, code: '422'
     end
   end
 
@@ -25,13 +25,13 @@ class Api::V1::UsersController < Api::V1::BaseController
     if @user.destroy
       render jsonapi: @user, status: :ok, code: '200'
     else
-      render jsonapi_errors: @user.errors, 
+      render jsonapi_errors: @user.errors,
              status: :unprocessable_entity, code: '422'
     end
   end
 
   private
-  
+
   def set_user
     @user = User.find(params[:id])
   end
