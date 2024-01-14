@@ -14,6 +14,9 @@ class Api::V1::ProductsController < Api::V1::BaseController
     end
   end
 
+  # GET api/v1/products/:id
+  def show; end
+
   # PATCH/PUT api/v1/products/:id
   def update
     @product = Product.find(params[:id])
