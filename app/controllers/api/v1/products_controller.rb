@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 class Api::V1::ProductsController < Api::V1::BaseController
+  before_action :set_product, only: %i[show update destroy]
+
   # POST api/v1/products
   def create
     @product = Product.new(product_params)
@@ -16,14 +18,12 @@ class Api::V1::ProductsController < Api::V1::BaseController
 
   # GET api/v1/products/:id
   def show
-    @product = Product.find(params[:id])
     render json: ProductSerializer.new(@product, include: [:categories])
                                   .serializable_hash.to_json, status: :ok, code: '200'
   end
 
   # PATCH/PUT api/v1/products/:id
   def update
-    @product = Product.find(params[:id])
     if @product.update(product_params)
       @product.image_derivatives! if @product.valid?
       @product.save
@@ -36,7 +36,6 @@ class Api::V1::ProductsController < Api::V1::BaseController
 
   # DELETE api/v1/products/:id
   def destroy
-    @product = Product.find(params[:id])
     if @product.destroy
       render jsonapi: @product, status: :ok, code: '200'
     else
@@ -46,6 +45,10 @@ class Api::V1::ProductsController < Api::V1::BaseController
   end
 
   private
+
+  def set_product
+    @product = Product.find(params[:id])
+  end
 
   def product_params
     params.require(:product).permit(:title, :body, :price, :image)

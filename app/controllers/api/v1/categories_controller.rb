@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 class Api::V1::CategoriesController < Api::V1::BaseController
+  before_action :set_category, only: %i[update destroy]
+
   # POST api/v1/categories
   def create
     @category = Category.new(category_params)
@@ -15,7 +17,6 @@ class Api::V1::CategoriesController < Api::V1::BaseController
 
   # PATCH/PUT api/v1/categories/:id
   def update
-    @category = Category.find(params[:id])
     if @category.update(category_params)
       render jsonapi: @category, status: :ok, code: '200'
     else
@@ -26,7 +27,6 @@ class Api::V1::CategoriesController < Api::V1::BaseController
 
   # DELETE api/v1/categories/:id
   def destroy
-    @category = Category.find(params[:id])
     if @category.destroy
       render jsonapi: @category, status: :ok, code: '200'
     else
@@ -36,6 +36,10 @@ class Api::V1::CategoriesController < Api::V1::BaseController
   end
 
   private
+
+  def set_category
+    @category = Category.find(params[:id])
+  end
 
   def category_params
     params.require(:category).permit(:name, :description)
