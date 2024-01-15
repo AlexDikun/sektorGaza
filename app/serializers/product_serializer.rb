@@ -15,7 +15,7 @@
 
 class ProductSerializer
   include JSONAPI::Serializer
-  attributes :title, :body, :price, :image
+  attributes :id, :title, :body, :price, :image, :created_at, :updated_at
 
   has_many :categories, serializer: CategorySerializer
   has_many :categorizations, serializer: CategorizationSerializer

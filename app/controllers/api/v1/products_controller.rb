@@ -14,6 +14,13 @@ class Api::V1::ProductsController < Api::V1::BaseController
     end
   end
 
+  # GET api/v1/products/:id
+  def show
+    @product = Product.find(params[:id])
+    render json: ProductSerializer.new(@product, include: [:categories])
+                                  .serializable_hash.to_json, status: :ok, code: '200'
+  end
+
   # PATCH/PUT api/v1/products/:id
   def update
     @product = Product.find(params[:id])
