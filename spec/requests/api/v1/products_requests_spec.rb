@@ -25,6 +25,34 @@ RSpec.describe 'Api::V1::Product', type: :request do
     end
   end
 
+  describe 'GET api/v1/products/:id' do
+    let(:product) { create :product }
+    let(:category) { create :category }
+    let!(:categorization) do
+      create :categorization, category: category, product: product
+    end
+    let(:params) { { id: product.id } }
+    let(:detailed_info) do
+      {
+        'id' => product.id, 'title' => product.title, 'body' => product.body,
+        'price' => product.price.as_json, 'image' => product.image.as_json,
+        'created_at' => product.created_at.as_json,
+        'updated_at' => product.updated_at.as_json
+      }
+    end
+    let(:included) { { 'name' => category.name } }
+    subject { get api_v1_product_path(params) }
+
+    it 'show a product' do
+      subject
+      expect(response).to have_http_status(200)
+
+      json_response = JSON.parse(response.body)
+      expect(json_response['data']['attributes']).to include(detailed_info)
+      expect(json_response['included'].first['attributes']).to include(included)
+    end
+  end
+
   describe 'PATCH api/v1/products/:id' do
     let!(:product) { create :product }
     let(:params) do
