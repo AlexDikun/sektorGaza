@@ -16,4 +16,8 @@
 class LineItem < ApplicationRecord
   belongs_to :product
   belongs_to :user
+
+  validates :product_id, presence: true, uniqueness: { scope: :user_id }
+  validates :user_id, presence: true, uniqueness: { scope: :product_id }
+  validates :quantity, numericality: { other_than: 0 }, presence: true
 end
