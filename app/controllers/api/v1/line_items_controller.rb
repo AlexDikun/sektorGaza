@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 class Api::V1::LineItemsController < Api::V1::BaseController
-  before_action :authenticate_user!, only: :create
+  before_action :authenticate_user!, only: %i[create destroy]
 
   # POST api/v1/line_items
   def create
@@ -24,4 +24,7 @@ class Api::V1::LineItemsController < Api::V1::BaseController
       end
     end
   end
+
+  # DELETE api/v1/line_items/:id
+  def destroy; end
 end
