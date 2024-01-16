@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20_240_112_162_017) do
+ActiveRecord::Schema.define(version: 20_240_116_080_810) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
@@ -35,6 +35,15 @@ ActiveRecord::Schema.define(version: 20_240_112_162_017) do
     t.index ['jti'], name: 'index_jwt_denylist_on_jti'
   end
 
+  create_table 'orders', force: :cascade do |t|
+    t.string 'name'
+    t.string 'telephone_number'
+    t.text 'address'
+    t.integer 'user_id'
+    t.datetime 'created_at', precision: 6, null: false
+    t.datetime 'updated_at', precision: 6, null: false
+  end
+
   create_table 'products', force: :cascade do |t|
     t.string 'title'
     t.text 'body'
@@ -56,4 +65,5 @@ ActiveRecord::Schema.define(version: 20_240_112_162_017) do
 
   add_foreign_key 'categorizations', 'categories'
   add_foreign_key 'categorizations', 'products'
+  add_foreign_key 'orders', 'users'
 end
