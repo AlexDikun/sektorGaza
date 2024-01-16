@@ -2,8 +2,6 @@
 # frozen_string_literal: true
 
 class Api::V1::RegistrationsController < Devise::RegistrationsController
-  respond_to :json
-
   # POST api/v1/signup
   def create
     build_resource(sign_up_params)
