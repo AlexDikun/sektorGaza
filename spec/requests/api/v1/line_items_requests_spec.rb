@@ -35,4 +35,19 @@ RSpec.describe 'Api::V1::LineItems', type: :request do
       end
     end
   end
+
+  describe 'DELETE api/v1/line_items/:id' do
+    let!(:item) do
+      create :line_item, user_id: user.id, product_id: product.id
+    end
+
+    let(:params) { { id: item.id } }
+
+    subject { delete api_v1_line_item_path(params) }
+
+    it 'delete item' do
+      expect { subject }.to change { LineItem.count }.by(-1)
+      expect(response).to have_http_status(200)
+    end
+  end
 end

@@ -26,5 +26,13 @@ class Api::V1::LineItemsController < Api::V1::BaseController
   end
 
   # DELETE api/v1/line_items/:id
-  def destroy; end
+  def destroy
+    @line_item = LineItem.find(params[:id])
+    if @line_item.destroy
+      render jsonapi: @line_item, status: :ok, code: '200'
+    else
+      render jsonapi_errors: @line_item.errors,
+             status: :unprocessable_entity, code: '422'
+    end
+  end
 end
