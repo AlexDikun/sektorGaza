@@ -14,16 +14,16 @@ RSpec.describe 'Api::V1::LineItems', type: :request do
     let(:params) { { product_id: product.id } }
 
     subject { post api_v1_line_items_path, params: params }
-     
+
     it 'create LineItem' do
       expect { subject }.to change { LineItem.count }.by(1)
       expect(response).to have_http_status(201)
     end
 
     context 'add this item to cart again' do
-      let(:expected_response) { { 'quantity' => 2 } } 
+      let(:expected_response) { { 'quantity' => 2 } }
       let!(:item) do
-        create :line_item, user_id: user.id, product_id: product.id 
+        create :line_item, user_id: user.id, product_id: product.id
       end
 
       it 'quantity++' do
