@@ -15,6 +15,7 @@ RSpec.describe Product, type: :model do
   it { is_expected.to validate_length_of(:body).is_at_most(500) }
   it { is_expected.to have_many(:categorizations) }
   it { is_expected.to have_many(:categories).through(:categorizations) }
+  it { is_expected.to have_many(:line_items).dependent(:destroy) }
 
   context 'validation image format' do
     it 'allows to set webp file as an image' do
