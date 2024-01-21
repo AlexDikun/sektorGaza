@@ -15,7 +15,9 @@ Rails.application.routes.draw do
         resources :orders, only: %i[show create]
       end
 
-      resources :line_items, only: :create
+      resources :line_items, only: %i[create destroy]
+      post 'line_items/:id/add', to: 'line_items#add_quantity', as: 'line_item_add'
+      post 'line_items/:id/reduce', to: 'line_items#reduce_quantity', as: 'line_item_reduce'
     end
   end
 

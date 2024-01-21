@@ -2,7 +2,8 @@
 # frozen_string_literal: true
 
 class Api::V1::LineItemsController < Api::V1::BaseController
-  before_action :authenticate_user!, only: :create
+  before_action :authenticate_user!, only: %i[create add_quantity reduce_quantity destroy]
+  before_action :set_line_item, only: %i[add_quantity reduce_quantity destroy]
 
   # POST api/v1/line_items
   def create
@@ -23,5 +24,35 @@ class Api::V1::LineItemsController < Api::V1::BaseController
                status: :unprocessable_entity, code: '422'
       end
     end
+  end
+
+  # POST api/v1/line_items/:id/add
+  def add_quantity
+    @line_item.quantity += 1
+    @line_item.save
+    render jsonapi: @line_item, status: :ok, code: '200'
+  end
+
+  # POST api/v1/line_items/:id/reduce
+  def reduce_quantity
+    @line_item.quantity -= 1 if @line_item.quantity > 1
+    @line_item.save
+    render jsonapi: @line_item, status: :ok, code: '200'
+  end
+
+  # DELETE api/v1/line_items/:id
+  def destroy
+    if @line_item.destroy
+      render jsonapi: @line_item, status: :ok, code: '200'
+    else
+      render jsonapi_errors: @line_item.errors,
+             status: :unprocessable_entity, code: '422'
+    end
+  end
+
+  private
+
+  def set_line_item
+    @line_item = LineItem.find(params[:id])
   end
 end
