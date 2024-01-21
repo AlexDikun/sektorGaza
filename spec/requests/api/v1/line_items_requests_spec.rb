@@ -36,6 +36,36 @@ RSpec.describe 'Api::V1::LineItems', type: :request do
     end
   end
 
+  describe 'POST api/v1/line_items/:id/add' do
+    let!(:item) do
+      create :line_item, user_id: user.id, product_id: product.id, quantity: 4
+    end
+
+    let(:params) { { id: item.id } }
+
+    subject { post api_v1_line_item_add_path(params) }
+
+    it 'add quantity' do
+      expect { subject }.to change { item.reload.quantity }.to(5)
+      expect(response).to have_http_status(200)
+    end
+  end
+
+  describe 'POST api/v1/line_items/:id/reduce' do
+    let!(:item) do
+      create :line_item, user_id: user.id, product_id: product.id, quantity: 4
+    end
+
+    let(:params) { { id: item.id } }
+
+    subject { post api_v1_line_item_reduce_path(params) }
+
+    it 'reduce quantity' do
+      expect { subject }.to change { item.reload.quantity }.to(3)
+      expect(response).to have_http_status(200)
+    end
+  end
+
   describe 'DELETE api/v1/line_items/:id' do
     let!(:item) do
       create :line_item, user_id: user.id, product_id: product.id
