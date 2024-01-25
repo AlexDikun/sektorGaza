@@ -32,6 +32,7 @@ class User < ApplicationRecord
 
   has_many :line_items, dependent: :destroy
   has_many :products, through: :line_items
+  has_one :cart, dependent: :destroy
 
   attr_accessor :skip_avatar_validation
 end
