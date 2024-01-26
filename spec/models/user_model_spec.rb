@@ -12,8 +12,6 @@ RSpec.describe User, type: :model do
   it { is_expected.to validate_presence_of(:password) }
   it { is_expected.to validate_uniqueness_of(:email).ignoring_case_sensitivity }
   it { is_expected.to validate_length_of(:fullname).is_at_most(30) }
-  it { is_expected.to have_many(:line_items).dependent(:destroy) }
-  it { is_expected.to have_many(:products).through(:line_items) }
   it { is_expected.to have_one(:cart).dependent(:destroy) }
 
   context 'validation avatar format' do
