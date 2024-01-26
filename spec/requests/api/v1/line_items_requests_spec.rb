@@ -4,14 +4,16 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::LineItems', type: :request do
-  let(:user) { create :user }
+  let!(:user) { create :user }
   let(:product) { create :product }
 
   # current_user
   before { sign_in user }
 
+  let(:cart) { create :cart, user_id: user.id  }
+
   describe 'POST api/v1/line_items' do
-    let(:params) { { product_id: product.id } }
+    let(:params) { { cart_id: cart.id, product_id: product.id } }
 
     subject { post api_v1_line_items_path, params: params }
 
@@ -23,7 +25,7 @@ RSpec.describe 'Api::V1::LineItems', type: :request do
     context 'add this item to cart again' do
       let(:expected_response) { { 'quantity' => 2 } }
       let!(:item) do
-        create :line_item, user_id: user.id, product_id: product.id
+        create :line_item, cart_id: cart.id, product_id: product.id
       end
 
       it 'quantity++' do
@@ -38,7 +40,7 @@ RSpec.describe 'Api::V1::LineItems', type: :request do
 
   describe 'POST api/v1/line_items/:id/add' do
     let!(:item) do
-      create :line_item, user_id: user.id, product_id: product.id, quantity: 4
+      create :line_item, cart_id: cart.id, product_id: product.id, quantity: 4
     end
 
     let(:params) { { id: item.id } }
@@ -53,7 +55,7 @@ RSpec.describe 'Api::V1::LineItems', type: :request do
 
   describe 'POST api/v1/line_items/:id/reduce' do
     let!(:item) do
-      create :line_item, user_id: user.id, product_id: product.id, quantity: 4
+      create :line_item, cart_id: cart.id, product_id: product.id, quantity: 4
     end
 
     let(:params) { { id: item.id } }
@@ -68,7 +70,7 @@ RSpec.describe 'Api::V1::LineItems', type: :request do
 
   describe 'DELETE api/v1/line_items/:id' do
     let!(:item) do
-      create :line_item, user_id: user.id, product_id: product.id
+      create :line_item, cart_id: cart.id, product_id: product.id
     end
 
     let(:params) { { id: item.id } }
