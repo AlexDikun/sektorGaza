@@ -3,11 +3,11 @@
 # Table name: line_items
 #
 #  id         :bigint           not null, primary key
-#  quantity   :integer
+#  quantity   :integer          default(1)
 #  product_id :integer
-#  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  cart_id    :integer
 #
 
 # app/models/line_item.rb
