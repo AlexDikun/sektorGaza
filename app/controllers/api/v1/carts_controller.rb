@@ -6,7 +6,10 @@ class Api::V1::CartsController < Api::V1::BaseController
   before_action :set_cart,           only: %i[show destroy]
 
   # GET api/v1/carts/:id
-  def show; end
+  def show
+    render json: CartSerializer.new(@current_cart, include: [:products])
+                               .serializable_hash.to_json, status: :ok, code: '200'
+  end
 
   # DELETE api/v1/carts/:id
   def destroy
