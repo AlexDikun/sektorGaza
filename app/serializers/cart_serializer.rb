@@ -13,4 +13,6 @@
 class CartSerializer
   include JSONAPI::Serializer
   belongs_to :user, serializer: UserSerializer
+  has_many :line_items, serializer: LineItemSerializer
+  has_many :products, serializer: ProductSerializer
 end
