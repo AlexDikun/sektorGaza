@@ -1,9 +1,9 @@
-# spec/requests/api/products_requests_spec.rb
+# spec/requests/api/v1/products_requests_spec.rb
 # frozen_string_literal: true
 
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Product', type: :request do
+RSpec.describe 'Api::V1::Products', type: :request do
   describe 'POST api/v1/products' do
     let(:params) { { product: attributes_for(:product) } }
     subject { post api_v1_products_path, params: params }
