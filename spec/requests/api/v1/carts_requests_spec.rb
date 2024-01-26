@@ -15,8 +15,8 @@ RSpec.describe 'Api::V1::Carts', type: :request do
     subject { delete api_v1_cart_path(params) }
 
     it 'delete cart' do
-      expect { subject }.to change { Cart.count }.by(-1) 
-      expect(response).to have_http_status(200) 
+      expect { subject }.to change { Cart.count }.by(-1)
+      expect(response).to have_http_status(200)
     end
   end
 end

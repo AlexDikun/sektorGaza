@@ -19,4 +19,10 @@ class Api::V1::BaseController < ApplicationController
       redirect_to new_user_session_path, format: :json
     end
   end
+
+  def set_cart
+    @current_cart = Cart.find_by(user_id: current_user.id)
+  rescue ActiveRecord::RecordNotFound
+    @current_cart = Cart.create(user_id: current_user.id)
+  end
 end

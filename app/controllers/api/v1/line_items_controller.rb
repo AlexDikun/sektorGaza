@@ -4,7 +4,7 @@
 class Api::V1::LineItemsController < Api::V1::BaseController
   before_action :authenticate_user!, only: %i[create add_quantity reduce_quantity destroy]
   before_action :set_line_item, only: %i[add_quantity reduce_quantity destroy]
-  before_action :set_cart
+  before_action :set_cart, only: :create
 
   # POST api/v1/line_items
   def create
@@ -55,11 +55,5 @@ class Api::V1::LineItemsController < Api::V1::BaseController
 
   def set_line_item
     @line_item = LineItem.find(params[:id])
-  end
-
-  def set_cart
-    @current_cart = Cart.find_by(user_id: current_user.id)
-  rescue ActiveRecord::RecordNotFound
-    @current_cart = Cart.create(user_id: current_user.id)
   end
 end
