@@ -1,4 +1,4 @@
-# spec/requests/api/categorizations_requests_spec.rb
+# spec/requests/api/v1/categorizations_requests_spec.rb
 # frozen_string_literal: true
 
 require 'rails_helper'
