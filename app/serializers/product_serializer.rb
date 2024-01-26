@@ -19,4 +19,5 @@ class ProductSerializer
 
   has_many :categories, serializer: CategorySerializer
   has_many :categorizations, serializer: CategorizationSerializer
+  has_many :line_items, serializer: LineItemSerializer
 end

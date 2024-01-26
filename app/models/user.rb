@@ -30,8 +30,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 8 }, on: :create
   validates :password, format: { with: PASSWORD_FORMAT }, on: :create
 
-  has_many :line_items, dependent: :destroy
-  has_many :products, through: :line_items
+  has_one :cart, dependent: :destroy
 
   attr_accessor :skip_avatar_validation
 end

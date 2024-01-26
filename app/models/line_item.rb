@@ -3,11 +3,11 @@
 # Table name: line_items
 #
 #  id         :bigint           not null, primary key
-#  quantity   :integer
+#  quantity   :integer          default(1)
 #  product_id :integer
-#  user_id    :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  cart_id    :integer
 #
 
 # app/models/line_item.rb
@@ -15,9 +15,9 @@
 
 class LineItem < ApplicationRecord
   belongs_to :product
-  belongs_to :user
+  belongs_to :cart
 
-  validates :product_id, presence: true, uniqueness: { scope: :user_id }
-  validates :user_id, presence: true, uniqueness: { scope: :product_id }
+  validates :product_id, presence: true, uniqueness: { scope: :cart_id }
+  validates :cart_id, presence: true, uniqueness: { scope: :product_id }
   validates :quantity, numericality: { other_than: 0 }, presence: true
 end
