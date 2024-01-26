@@ -7,7 +7,7 @@ class Api::V1::CartsController < Api::V1::BaseController
 
   # GET api/v1/carts/:id
   def show
-    render json: CartSerializer.new(@current_cart, include: [:products])
+    render json: CartSerializer.new(@current_cart, include: %i[line_items products])
                                .serializable_hash.to_json, status: :ok, code: '200'
   end
 

@@ -25,7 +25,7 @@ RSpec.describe 'Api::V1::Carts', type: :request do
       expect(response).to have_http_status(200)
 
       json_response = JSON.parse(response.body)
-      expect(json_response['included'].first['attributes'])
+      expect(json_response['included'].second['attributes'])
         .to include(expected_response)
     end
   end
