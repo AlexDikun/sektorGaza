@@ -59,7 +59,7 @@ class Api::V1::LineItemsController < Api::V1::BaseController
 
   def set_cart
     @current_cart = Cart.find_by(user_id: current_user.id)
-    rescue ActiveRecord::RecordNotFound
-      @current_cart = Cart.create(user_id: current_user.id)
+  rescue ActiveRecord::RecordNotFound
+    @current_cart = Cart.create(user_id: current_user.id)
   end
 end

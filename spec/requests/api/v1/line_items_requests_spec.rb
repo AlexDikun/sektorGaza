@@ -10,7 +10,7 @@ RSpec.describe 'Api::V1::LineItems', type: :request do
   # current_user
   before { sign_in user }
 
-  let(:cart) { create :cart, user_id: user.id  }
+  let(:cart) { create :cart, user_id: user.id }
 
   describe 'POST api/v1/line_items' do
     let(:params) { { cart_id: cart.id, product_id: product.id } }
