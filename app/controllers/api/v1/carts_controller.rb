@@ -2,8 +2,11 @@
 # frozen_string_literal: true
 
 class Api::V1::CartsController < Api::V1::BaseController
-  before_action :authenticate_user!, only: :destroy
-  before_action :set_cart, only: :destroy
+  before_action :authenticate_user!, only: %i[show destroy]
+  before_action :set_cart,           only: %i[show destroy]
+
+  # GET api/v1/carts/:id
+  def show; end
 
   # DELETE api/v1/carts/:id
   def destroy
