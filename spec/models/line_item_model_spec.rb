@@ -11,8 +11,6 @@ RSpec.describe LineItem, type: :model do
   it { is_expected.to validate_numericality_of(:quantity).is_other_than(0) }
 
   context 'validation total_price' do
-    let(:expected_price) { 500 }
-
     let(:user)    { create :user }
     let(:product) { create :product, price: 100 }
     let(:cart)    { create :cart, user_id: user.id }
@@ -20,6 +18,8 @@ RSpec.describe LineItem, type: :model do
     let(:item) do
       create :line_item, cart_id: cart.id, product_id: product.id, quantity: 5
     end
+
+    let(:expected_price) { 500 }
 
     subject { item.total_price }
 
