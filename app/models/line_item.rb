@@ -20,4 +20,8 @@ class LineItem < ApplicationRecord
   validates :product_id, presence: true, uniqueness: { scope: :cart_id }
   validates :cart_id, presence: true, uniqueness: { scope: :product_id }
   validates :quantity, numericality: { other_than: 0 }, presence: true
+
+  def total_price
+    quantity * product.price
+  end
 end
