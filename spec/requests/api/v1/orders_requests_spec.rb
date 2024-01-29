@@ -4,9 +4,22 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::V1::Orders', type: :request do
-  describe 'GET api/v1/users/:user_id/orders/:id' do
-  end
+  context 'place an order' do
+    let(:user) { create :user }
+    let(:cart) { create :cart, user_id: user.id }
+    let(:product) { create :product }
+    let!(:item) { create :line_item, cart_id: cart.id, product_id: product.id }
 
-  describe 'POST api/v1/users/:user_id/orders' do
+    before { sign_in user }
+
+    describe 'POST api/v1/orders' do
+      let(:params) { { order: attributes_for(:order) } }
+      subject { post api_v1_orders_path, params: params }
+
+      it 'create order' do
+        expect { subject }.to change { Order.count }.by(1)
+        expect(response).to have_http_status(201)
+      end
+    end
   end
 end
