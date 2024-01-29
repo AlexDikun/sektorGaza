@@ -6,7 +6,6 @@
 #  name             :string
 #  telephone_number :string
 #  address          :text
-#  user_id          :integer
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #
@@ -19,5 +18,5 @@ class Order < ApplicationRecord
   validates :address, presence: true, length: { maximum: 200 }
   validates :telephone_number, presence: true, length: { maximum: 18 }
 
-  belongs_to :user
+  has_many :line_items, dependent: :destroy
 end
