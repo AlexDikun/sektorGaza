@@ -24,9 +24,10 @@ RSpec.describe 'Api::V1::Orders', type: :request do
   end
 
   describe 'GET api/v1/orders/:id' do
-    let(:order) { create :order }
+    let(:order) { create :order_with_line_items }
     let(:params) { { id: order.id } }
-    let(:expected_response) { { 'telephone_number' => order.telephone_number } }
+    let(:expected_contact) { { 'telephone_number' => order.telephone_number } }
+    let(:expected_purchase) { { 'title' => order.line_items.first.product.title } }
 
     subject { get api_v1_order_path(params) }
 
@@ -35,8 +36,10 @@ RSpec.describe 'Api::V1::Orders', type: :request do
       expect(response).to have_http_status(200)
 
       json_response = JSON.parse(response.body)
-      puts json_response
-      expect(json_response['data']['attributes']).to include(expected_response)
+      expect(json_response['data']['attributes'])
+        .to include(expected_contact)
+      expect(json_response['included'].first['attributes'])
+        .to include(expected_purchase)
     end
   end
 end
