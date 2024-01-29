@@ -8,7 +8,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
 
   # GET api/v1/orders/:id
   def show
-    render json: OrderSerializer.new(@order, include: [:line_items])
+    render json: OrderSerializer.new(@order, include: ['line_items.product'])
                                 .serializable_hash.to_json, status: :ok, code: '200'
   end
 
