@@ -8,6 +8,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  cart_id    :integer
+#  order_id   :bigint
 #
 
 # app/serializers/line_item_serializer.rb
@@ -18,4 +19,5 @@ class LineItemSerializer
 
   belongs_to :product, serializer: ProductSerializer
   belongs_to :cart, serializer: CartSerializer
+  belongs_to :order, serializer: OrderSerializer
 end
