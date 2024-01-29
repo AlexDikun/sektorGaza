@@ -13,7 +13,7 @@
 
 class OrderSerializer
   include JSONAPI::Serializer
-  attributes :name, :name, :telephone_number, :address, :created_at
+  attributes :name, :telephone_number, :address, :created_at
 
   has_many :line_items, serializer: LineItemSerializer
 end
