@@ -8,6 +8,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  cart_id    :integer
+#  order_id   :bigint
 #
 
 # app/models/line_item.rb
