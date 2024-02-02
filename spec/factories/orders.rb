@@ -1,5 +1,18 @@
-# spec/factories/orders.rb
 # frozen_string_literal: true
+
+# == Schema Information
+#
+# Table name: orders
+#
+#  id               :bigint           not null, primary key
+#  name             :string
+#  telephone_number :string
+#  address          :text
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  user_id          :bigint
+#
+# spec/factories/orders.rb
 
 FactoryBot.define do
   factory :order do
