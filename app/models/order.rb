@@ -17,6 +17,8 @@ class Order < ApplicationRecord
   validates :name, presence: true, length: { maximum: 30 }
   validates :address, presence: true, length: { maximum: 200 }
   validates :telephone_number, presence: true, length: { maximum: 18 }
+  validates :user_id, presence: true
 
   has_many :line_items, dependent: :destroy
+  belongs_to :user
 end
