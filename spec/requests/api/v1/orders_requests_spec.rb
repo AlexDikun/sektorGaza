@@ -27,7 +27,7 @@ RSpec.describe 'Api::V1::Orders', type: :request do
     let(:order) { create :order_with_line_items }
     let(:params) { { id: order.id } }
     let(:expected_contact) { { 'telephone_number' => order.telephone_number } }
-    let(:expected_purchase) { { 'title' => order.line_items.first.product.title } }
+    let(:expected_purchase) { { 'title' => order.products.first.title } }
 
     subject { get api_v1_order_path(params) }
 
