@@ -15,7 +15,7 @@ class Api::V1::OrdersController < Api::V1::BaseController
   # POST api/v1/orders
   def create
     @order = Order.new(order_params)
-
+    @order.user = @current_cart.user
     @current_cart.line_items.each do |item|
       @order.line_items << item
       item.cart_id = nil
