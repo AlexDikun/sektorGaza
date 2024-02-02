@@ -8,8 +8,8 @@
 #  address          :text
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  user_id          :bigint
 #
-# app/serializers/order_serializer.rb
 
 class OrderSerializer
   include JSONAPI::Serializer
