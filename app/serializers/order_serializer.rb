@@ -16,4 +16,5 @@ class OrderSerializer
   attributes :name, :telephone_number, :address, :created_at
 
   has_many :line_items, serializer: LineItemSerializer
+  belongs_to :user, serializer: UserSerializer
 end
