@@ -18,8 +18,8 @@ gem 'rack-cors', '~> 2.0', '>= 2.0.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.0.6', '>= 6.0.6.1'
 
-gem 'rubocop', require: false
 gem 'pundit', '~> 2.3', '>= 2.3.1'
+gem 'rubocop', require: false
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
