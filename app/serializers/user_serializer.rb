@@ -18,4 +18,5 @@ class UserSerializer
   attributes :fullname, :avatar, :email
   has_one :cart, serializer: CartSerializer
   has_many :orders, serializer: OrderSerializer
+  has_many :reviews, serializer: ReviewSerializer
 end
