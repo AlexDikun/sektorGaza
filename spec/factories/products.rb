@@ -1,5 +1,18 @@
-# spec/factories/products.rb
 # frozen_string_literal: true
+
+# == Schema Information
+#
+# Table name: products
+#
+#  id         :bigint           not null, primary key
+#  title      :string
+#  body       :text
+#  price      :decimal(, )
+#  image_data :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# spec/factories/products.rb
 
 FactoryBot.define do
   factory :product do

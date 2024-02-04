@@ -17,4 +17,5 @@ class UserSerializer
   include JSONAPI::Serializer
   attributes :fullname, :avatar, :email
   has_one :cart, serializer: CartSerializer
+  has_many :orders, serializer: OrderSerializer
 end

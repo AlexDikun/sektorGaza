@@ -11,4 +11,7 @@ RSpec.describe Order, type: :model do
   it { is_expected.to validate_presence_of(:telephone_number) }
   it { is_expected.to validate_length_of(:telephone_number).is_at_most(18) }
   it { is_expected.to have_many(:line_items).dependent(:destroy) }
+  it { is_expected.to belong_to(:user) }
+  it { is_expected.to validate_presence_of(:user_id) }
+  it { is_expected.to have_many(:products).through(:line_items) }
 end

@@ -31,6 +31,7 @@ class User < ApplicationRecord
   validates :password, format: { with: PASSWORD_FORMAT }, on: :create
 
   has_one :cart, dependent: :destroy
+  has_many :orders
 
   attr_accessor :skip_avatar_validation
 end

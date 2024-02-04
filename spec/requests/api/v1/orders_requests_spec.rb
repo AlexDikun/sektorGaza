@@ -10,24 +10,33 @@ RSpec.describe 'Api::V1::Orders', type: :request do
   context 'place an order' do
     let(:cart) { create :cart, user_id: user.id }
     let(:product) { create :product }
-    let!(:item) { create :line_item, cart_id: cart.id, product_id: product.id }
 
     describe 'POST api/v1/orders' do
       let(:params) { { order: attributes_for(:order) } }
       subject { post api_v1_orders_path, params: params }
 
-      it 'create order' do
-        expect { subject }.to change { Order.count }.by(1)
-        expect(response).to have_http_status(201)
+      context 'Happy path' do
+        let!(:item) { create :line_item, cart: cart, product: product }
+
+        it 'create order' do
+          expect { subject }.to change { Order.count }.by(1)
+          expect(response).to have_http_status(201)
+        end
+      end
+
+      context 'if a shopping cart is empty' do
+        let!(:cart) { create :cart, user_id: user.id }
+
+        it { expect { subject }.to raise_error Pundit::NotAuthorizedError }
       end
     end
   end
 
   describe 'GET api/v1/orders/:id' do
-    let(:order) { create :order_with_line_items }
+    let!(:order) { create :order_with_line_items, user: user }
     let(:params) { { id: order.id } }
     let(:expected_contact) { { 'telephone_number' => order.telephone_number } }
-    let(:expected_purchase) { { 'title' => order.line_items.first.product.title } }
+    let(:expected_purchase) { { 'title' => order.products.first.title } }
 
     subject { get api_v1_order_path(params) }
 
