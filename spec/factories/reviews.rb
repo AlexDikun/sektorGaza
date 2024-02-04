@@ -15,8 +15,6 @@
 
 # spec/factories/reviews.rb
 
-require 'ffaker'
-
 FactoryBot.define do
   factory :review do
     content { FFaker::Lorem.sentence }
