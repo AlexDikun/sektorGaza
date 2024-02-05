@@ -5,7 +5,7 @@ require 'rails_helper'
 
 describe 'Api::V1::Reviews', type: :request do
   let(:user) { create :user }
-  let!(:order) { create :order_with_line_items, user: user }
+  let(:order) { create :order_with_line_items, user: user }
   
   describe 'GET api/v1/products/:product_id/reviews' do
     let(:review) { create :review, user: user, product: order.products.first }
