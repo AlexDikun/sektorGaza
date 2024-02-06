@@ -10,7 +10,9 @@ class ReviewPolicy
   end
 
   def create?
-    @user.orders.includes(:products).where(id: review.product.id).exists?
+    @user.orders.includes(:products).where(
+      products: { id: review.product.id }
+    ).exists?
   end
 
   def update?
