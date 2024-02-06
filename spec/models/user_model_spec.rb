@@ -14,6 +14,7 @@ RSpec.describe User, type: :model do
   it { is_expected.to validate_length_of(:fullname).is_at_most(30) }
   it { is_expected.to have_one(:cart).dependent(:destroy) }
   it { is_expected.to have_many(:orders) }
+  it { is_expected.to have_many(:reviews).dependent(:destroy) }
 
   context 'validation avatar format' do
     it 'allows to set webp file as an avatar' do

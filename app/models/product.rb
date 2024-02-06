@@ -20,6 +20,7 @@ class Product < ApplicationRecord
   has_many :categorizations
   has_many :categories, through: :categorizations
   has_many :line_items, dependent: :destroy
+  has_many :reviews, dependent: :destroy
 
   validates :title, presence: true, length: { maximum: 50 }
   validates :body, presence: true, length: { maximum: 500 }

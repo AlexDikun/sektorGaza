@@ -16,6 +16,7 @@ RSpec.describe Product, type: :model do
   it { is_expected.to have_many(:categorizations) }
   it { is_expected.to have_many(:categories).through(:categorizations) }
   it { is_expected.to have_many(:line_items).dependent(:destroy) }
+  it { is_expected.to have_many(:reviews).dependent(:destroy) }
 
   context 'validation image format' do
     it 'allows to set webp file as an image' do
