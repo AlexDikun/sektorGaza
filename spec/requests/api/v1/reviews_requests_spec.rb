@@ -6,7 +6,7 @@ require 'rails_helper'
 describe 'Api::V1::Reviews', type: :request do
   let(:user) { create :user }
   let(:order) { create :order_with_line_items, user: user }
-  
+
   describe 'GET api/v1/products/:product_id/reviews' do
     let!(:review) { create :review, user: user, product: order.products.first }
     let(:params) { { product_id: order.products.first.id } }
@@ -39,7 +39,7 @@ describe 'Api::V1::Reviews', type: :request do
       expect(json_response['data']['attributes']).to include(expected_attr)
     end
   end
-  
+
   describe 'POST api/v1/products/:product_id/reviews' do
     before { sign_in user }
 
@@ -73,7 +73,7 @@ describe 'Api::V1::Reviews', type: :request do
       end
     end
   end
-  
+
   describe 'PATCH api/v1/products/:product_id/reviews/:id' do
     before { sign_in user }
 
