@@ -8,7 +8,7 @@ describe 'Api::V1::Reviews', type: :request do
   let(:order) { create :order_with_line_items, user: user }
   
   describe 'GET api/v1/products/:product_id/reviews' do
-    let(:review) { create :review, user: user, product: order.products.first }
+    let!(:review) { create :review, user: user, product: order.products.first }
     let(:params) { { product_id: order.products.first.id } }
     let(:expected_count) { Review.all.count }
 
