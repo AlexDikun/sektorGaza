@@ -21,6 +21,8 @@ class Api::V1::ReviewsController < Api::V1::BaseController
 
   # POST api/v1/products/:product_id/reviews
   def create
+    return if alredy_reviewed?
+
     @review = Review.new(review_params)
     @review.product = @product
     @review.user = current_user
@@ -58,6 +60,10 @@ class Api::V1::ReviewsController < Api::V1::BaseController
   end
 
   private
+
+  def alredy_reviewed?
+    @product.reviews.where(user: current_user).exists?
+  end
 
   def review_params
     params.require(:review).permit(:content, :rating)

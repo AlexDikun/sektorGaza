@@ -72,6 +72,15 @@ describe 'Api::V1::Reviews', type: :request do
         expect { subject }.to raise_error Pundit::NotAuthorizedError
       end
     end
+
+    context 'A user leaves only one review for the purchased product' do
+      let!(:review) { create :review, user: user, product: order.products.first }
+
+      it 'A user has already left a review ' do
+        expect { subject }.not_to(change { Review.count })
+        expect(response).to have_http_status(204)
+      end
+    end
   end
 
   describe 'PATCH api/v1/products/:product_id/reviews/:id' do
