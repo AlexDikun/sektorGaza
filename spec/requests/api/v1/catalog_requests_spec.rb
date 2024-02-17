@@ -156,9 +156,9 @@ RSpec.describe 'Api::V1::Catalog', type: :request do
   end
 
   describe 'GET api/v1/catalog_sort' do
-    let(:piano) { create :product }           
-    let(:grand_piano) { create :product }     
-    let(:synth) { create :product }           
+    let(:piano) { create :product }
+    let(:grand_piano) { create :product }
+    let(:synth) { create :product }
 
     let!(:piano_review) { create :review, product: piano, rating: 2 }
     let!(:grand_piano_review) { create :review, product: grand_piano, rating: 4 }
@@ -166,7 +166,7 @@ RSpec.describe 'Api::V1::Catalog', type: :request do
     let!(:synth_review2) { create :review, product: synth, rating: 1 }
 
     context 'a user first sees products with good reviews' do
-      subject { get '/api/v1/catalog_sort?sort=-reviews_rating' }
+      subject { get '/api/v1/catalog_sort?sort=-reviews_rating_avg' }
 
       it 'sort in descending order' do
         subject
@@ -175,7 +175,7 @@ RSpec.describe 'Api::V1::Catalog', type: :request do
     end
 
     context 'a user first sees products with bad reviews' do
-      subject { get '/api/v1/catalog_sort?sort=reviews_rating' }
+      subject { get '/api/v1/catalog_sort?sort=reviews_rating_avg' }
 
       it 'sort in ascending order' do
         subject
