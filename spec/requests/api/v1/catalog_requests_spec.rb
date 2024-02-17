@@ -163,6 +163,7 @@ RSpec.describe 'Api::V1::Catalog', type: :request do
     let!(:piano_review) { create :review, product: piano, rating: 2 }
     let!(:grand_piano_review) { create :review, product: grand_piano, rating: 4 }
     let!(:synth_review) { create :review, product: synth, rating: 5 }
+    let!(:synth_review2) { create :review, product: synth, rating: 1 }
 
     context 'a user first sees products with good reviews' do
       subject { get '/api/v1/catalog_sort?sort=-reviews_rating' }
