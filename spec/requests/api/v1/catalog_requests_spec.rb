@@ -3,7 +3,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Api::V1::Catalog', type: :request do
+RSpec.describe 'Api::V1::Catalog', type: :request do 
   describe 'GET api/vi/catalog' do
     let(:category) { create :category }
     let(:product) { create :product }
@@ -151,6 +151,34 @@ RSpec.describe 'Api::V1::Catalog', type: :request do
           .first).not_to include('id' => another_category.id)
         expect(json_response['data'].second['relationships']['categories']['data']
           .first).not_to include('id' => another_category.id)
+      end
+    end
+  end
+
+  describe 'GET api/v1/catalog_sort' do
+    let(:piano) { create :product }           #1  #4
+    let(:grand_piano) { create :product }     #2  #5
+    let(:synth) { create :product }           #3  #6
+
+    let!(:piano_review) { create :review, product: piano, rating: 2 }
+    let!(:grand_piano_review) { create :review, product: grand_piano, rating: 4 }
+    let!(:synth_review) { create :review, product: synth, rating: 5 }
+
+    context 'a user first sees products with good reviews' do
+      subject { get '/api/v1/catalog_sort?sort=-reviews_rating' }
+
+      it 'sort in descending order' do
+        subject
+        expect(response).to have_http_status(200)
+      end
+    end
+
+    context 'a user first sees products with bad reviews' do
+      subject { get '/api/v1/catalog_sort?sort=reviews_rating' } 
+      
+      it 'sort in ascending order' do
+        subject
+        expect(response).to have_http_status(200)
       end
     end
   end
