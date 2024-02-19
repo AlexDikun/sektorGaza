@@ -182,5 +182,14 @@ RSpec.describe 'Api::V1::Catalog', type: :request do
         expect(response).to have_http_status(200)
       end
     end
+
+    context 'first, a user will see a products with the most reviews' do
+      subject { get '/api/v1/catalog_sort?sort=-reviews_count' }
+
+      it 'sorting by the number of reviews' do
+        subject
+        expect(response).to have_http_status(200)
+      end
+    end
   end
 end
