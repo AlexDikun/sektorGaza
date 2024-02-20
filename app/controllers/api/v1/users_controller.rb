@@ -2,6 +2,8 @@
 # frozen_string_literal: true
 
 class Api::V1::UsersController < Api::V1::BaseController
+  include Pundit::Authorization
+
   before_action :set_user, only: %i[show update destroy]
 
   # GET api/v1/users/:id
@@ -11,6 +13,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   # PATCH/PUT api/v1/users/:id
   def update
+    authorize @user
     if @user.update(user_update_params)
       @user.avatar_derivatives! && @user.save if @user.avatar
       render jsonapi: @user, status: :ok, code: '200'
@@ -22,6 +25,7 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   # DELETE api/v1/users/:id
   def destroy
+    authorize @user
     if @user.destroy
       render jsonapi: @user, status: :ok, code: '200'
     else
