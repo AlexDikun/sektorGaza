@@ -170,27 +170,53 @@ RSpec.describe 'Api::V1::Catalog', type: :request do
     let!(:synth_review3) { create :review, product: synth }
 
     context 'a user first sees products with good reviews' do
+      let(:expected_sort) do
+        Product.joins(:reviews)
+               .select('products.*, avg(reviews.rating) as rmax')
+               .group('products.id')
+               .order('rmax DESC')
+      end
+
       subject { get '/api/v1/catalog_sort?sort=-reviews_rating_avg' }
 
       it 'sort in descending order' do
         subject
         expect(response).to have_http_status(200)
+
+        json_response = JSON.parse(response.body)
+        expect(json_response['data'].first['attributes'])
+          .to include('id' => expected_sort.first.id)
+        expect(json_response['data'].last['attributes'])
+          .to include('id' => expected_sort.last.id)
       end
     end
 
     context 'a user first sees products with bad reviews' do
+      let(:expected_sort) do
+        Product.joins(:reviews)
+               .select('products.*, avg(reviews.rating) as rmax')
+               .group('products.id')
+               .order('rmax ASC')
+      end
+
       subject { get '/api/v1/catalog_sort?sort=reviews_rating_avg' }
 
       it 'sort in ascending order' do
         subject
         expect(response).to have_http_status(200)
+
+        json_response = JSON.parse(response.body)
+        expect(json_response['data'].first['attributes'])
+          .to include('id' => expected_sort.first.id)
+        expect(json_response['data'].last['attributes'])
+          .to include('id' => expected_sort.last.id)
       end
     end
 
     context 'first, a user will see a products with the most reviews' do
       let(:expected_sort) do
         Product.joins(:reviews)
-               .select('products.*, count(reviews.id) as rcount ')
+               .select('products.*, count(reviews.id) as rcount')
                .group('products.id')
                .order('rcount DESC')
       end
