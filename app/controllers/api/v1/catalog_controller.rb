@@ -19,8 +19,7 @@ class Api::V1::CatalogController < Api::V1::BaseController
                                   .serializable_hash.to_json, status: :ok, code: '200'
   end
 
-  # GET api/v1/catalog_sort?sort=-reviews_rating_avg
-  # GET api/v1/catalog_sort?sort=reviews_rating_avg
+  # GET api/v1/catalog_sort
   def sorting_products_by_reviews
     allowed = [:reviews_rating]
     options = { sort_with_expressions: true }
