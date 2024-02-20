@@ -160,10 +160,14 @@ RSpec.describe 'Api::V1::Catalog', type: :request do
     let(:grand_piano) { create :product }
     let(:synth) { create :product }
 
-    let!(:piano_review) { create :review, product: piano, rating: 2 }
-    let!(:grand_piano_review) { create :review, product: grand_piano, rating: 4 }
-    let!(:synth_review) { create :review, product: synth, rating: 5 }
-    let!(:synth_review2) { create :review, product: synth, rating: 1 }
+    let!(:piano_review) { create :review, product: piano }
+
+    let!(:grand_piano_review) { create :review, product: grand_piano }
+    let!(:grand_piano_review2) { create :review, product: grand_piano }
+
+    let!(:synth_review) { create :review, product: synth }
+    let!(:synth_review2) { create :review, product: synth }
+    let!(:synth_review3) { create :review, product: synth }
 
     context 'a user first sees products with good reviews' do
       subject { get '/api/v1/catalog_sort?sort=-reviews_rating_avg' }
@@ -184,11 +188,20 @@ RSpec.describe 'Api::V1::Catalog', type: :request do
     end
 
     context 'first, a user will see a products with the most reviews' do
+      let(:first_item) { synth.reviews.size }
+      let(:last_item)  { piano.reviews.count }
+
       subject { get '/api/v1/catalog_sort?sort=-reviews_count' }
 
       it 'sorting by the number of reviews' do
         subject
         expect(response).to have_http_status(200)
+
+        json_response = JSON.parse(response.body)
+        expect(json_response['data'].first['relationships']['reviews']['data']
+                                    .size).to eql(first_item)
+        expect(json_response['data'].last['relationships']['reviews']['data']
+                                    .size).to eql(last_item)
       end
     end
   end
