@@ -22,8 +22,9 @@ RSpec.describe 'Api::V1::Users', type: :request do
   end
 
   describe 'PATCH api/v1/users/:id' do
-    let(:user_update_params) { { user: { fullname: 'Elvis Presley' } } }
+    before { sign_in user }
 
+    let(:user_update_params) { { user: { fullname: 'Elvis Presley' } } }
     subject { patch api_v1_user_path(id_params), params: user_update_params }
 
     it 'update user' do
@@ -42,17 +43,32 @@ RSpec.describe 'Api::V1::Users', type: :request do
         expect(response).to have_http_status(422)
       end
     end
+
+    context 'a user is trying to edit someone else*s account' do
+      let(:other_user) { create :user }
+      before { sign_in other_user }
+
+      it { expect { subject }.to raise_error Pundit::NotAuthorizedError }
+    end
   end
 
   describe 'DELETE api/v1/users/:id' do
     let!(:user) { create :user }
-    let(:params) { { id: user.id } }
+    before { sign_in user }
 
+    let(:params) { { id: user.id } }
     subject { delete api_v1_user_path(params) }
 
     it 'delete user' do
       expect { subject }.to change { User.count }.by(-1)
       expect(response).to have_http_status(200)
+    end
+
+    context 'a user tries to delete someone else*s account' do
+      let(:other_user) { create :user }
+      before { sign_in other_user }
+
+      it { expect { subject }.to raise_error Pundit::NotAuthorizedError }
     end
   end
 end
