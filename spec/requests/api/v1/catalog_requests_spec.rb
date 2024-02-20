@@ -188,8 +188,12 @@ RSpec.describe 'Api::V1::Catalog', type: :request do
     end
 
     context 'first, a user will see a products with the most reviews' do
-      let(:first_item) { synth.reviews.size }
-      let(:last_item)  { piano.reviews.count }
+      let(:expected_sort) do
+        Product.joins(:reviews)
+               .select('products.*, count(reviews.id) as rcount ')
+               .group('products.id')
+               .order('rcount DESC')
+      end
 
       subject { get '/api/v1/catalog_sort?sort=-reviews_count' }
 
@@ -199,9 +203,9 @@ RSpec.describe 'Api::V1::Catalog', type: :request do
 
         json_response = JSON.parse(response.body)
         expect(json_response['data'].first['relationships']['reviews']['data']
-                                    .size).to eql(first_item)
+                                    .size).to eql(expected_sort.first.reviews.count)
         expect(json_response['data'].last['relationships']['reviews']['data']
-                                    .size).to eql(last_item)
+                                    .size).to eql(expected_sort.last.reviews.count)
       end
     end
   end
