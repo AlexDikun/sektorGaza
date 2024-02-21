@@ -31,3 +31,6 @@
 
 # Ignore downloaded images
 /public/uploads/*
+
+# Ignore simplecow's gem fixtures
+/coverage/*
